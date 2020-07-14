@@ -8,5 +8,5 @@
 
 ### install goimports
 
-# `ln gfmt.sh /usr/bin/gfmt`
-# `ln gstyle.sh /usr/bin/gstyle`
+#### `ln gfmt.sh /usr/bin/gfmt`
+#### `ln gstyle.sh /usr/bin/gstyle`

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "gfmt: running ..."
+
 #goimports
 dirs=$(go list -f {{.Dir}} ./...)
 for d in $dirs; 

@@ -1,6 +1,6 @@
 # gfmt
 
-### a basic script running goimports recursively on a directory and checking basic style
+### runs goimports recursively on a directory and runs scripts checking basic style
 
 ### currently the style checked is only: 
 
@@ -10,7 +10,7 @@
 
 - function length
 
-#### but more style rules will be check in future versions.
+#### but more style rules will be checked in future versions.
 
 ### to install:
 

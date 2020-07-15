@@ -52,3 +52,5 @@ check_len_of_file $1
 
 # check length of closures 
 # TODO
+
+#echo "gs returns"

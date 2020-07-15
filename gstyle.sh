@@ -4,7 +4,7 @@
 
 maxWidth=80
 maxFileLength=1000
-maxFunctionHeight=48
+maxFunctionHeight=47
 
 line_num_w_width () {
 	idx=0
@@ -52,9 +52,6 @@ check_len_of_file () {
 	fi
 }
 
-# check length of closures 
-# TODO
-
 update_t_file () { # touch
 	fullFilePath=$1
 	simPath=$2$fullFilePath
@@ -64,10 +61,44 @@ update_t_file () { # touch
 	touch -m $simPath
 }
 
+# check length of closures 
+# TODO
+
 check_func_len () {
 	fullFilePath=$1
-	#echo $fullFilePath
-	return 0
+	func="^func"
+	rBrac="^}"
+	idx=0
+	funcIdx=0
+	bracIdx=0
+	IFS=''
+	while read line
+	do
+		if [ $funcIdx -eq 0 ]; then
+			funcFound=$(echo $line | grep $func)
+			if [ "$funcFound" != "" ]; then
+				#echo $line
+				funcIdx=$idx
+			fi
+		else
+			# we look for rBrac
+			bracFound=$(echo $line | grep $rBrac)
+			if [ "$bracFound" != "" ]; then
+				#echo $line	
+				bracIdx=$idx
+				functionLength=$((bracIdx-funcIdx))
+				if [ $functionLength -gt $maxFunctionHeight ];
+				then
+					echo $fullFilePath":"$funcIdx
+					echo "styleOffense: functionHeight" 
+					return 1
+				fi
+				funcIdx=0
+				bracIdx=0
+			fi
+		fi
+		idx=$((idx+1))
+	done < $fullFilePath	
 }
 
 runner() {

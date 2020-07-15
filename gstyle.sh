@@ -6,7 +6,6 @@ maxWidth=80
 maxFileLength=1000
 maxFunctionHeight=48
 
-
 line_num_w_width () {
 	idx=0
 	max=$(($2+1))
@@ -54,16 +53,13 @@ check_len_of_file () {
 # check length of closures 
 # TODO
 
-#echo "gs returns"
-
-update_tnh_file () {
+update_t_file () { # touch
 	fullFilePath=$1
-	h=($(sha256sum $fullFilePath))
-	hhashPath=$2$fullFilePath
-	file=${hhashPath##*/}
-	path=$(echo $hhashPath | sed -e "s/$file$//g")
+	simPath=$2$fullFilePath
+	file=${simPath##*/}
+	path=$(echo $simPath | sed -e "s/$file$//g")
 	mkdir -p $path
-	echo $h > $hhashPath
+	touch -m $simPath
 }
 
 runner() {
@@ -75,7 +71,7 @@ runner() {
 	#echo "offender" $offender
 	if [ $offender -eq 0 ]; then
 		# not an offender
-		update_tnh_file $1 $2
+		update_t_file $1 $2
 	fi		
 }
 runner $1 $2 

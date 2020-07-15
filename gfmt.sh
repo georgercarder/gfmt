@@ -1,22 +1,34 @@
 #!/bin/bash
 
 echo "gfmt: running ..."
+echo ""
 
 gfmt_base_dir=".gfmt/timestamp_n_hash"
+lastModDoc=$gfmt_base_dir"/last_mod.txt"
 
 dirs=$(go list -f {{.Dir}} ./...)
 
-check_diff () {
-	for elt in $1;
-	do
-		#fpath=$gfmt_base_dir$elt
-		# check time
+#check_diff () { # of directories
+#	# get lastMod
+#	lastMod=$(stat -c %Y $lastModDoc)
+#	echo "lastMod" $lastMod
+#
+#	for elt in $1;
+#	do
+#		# check time of each dir against lastMod
+#		lm=$(stat -c %Y $elt)
+#		echo $lm
+#		if [ $lm -gt $lastMod ]; then
+#			echo "OUCH"
+#			continue
+#		fi
+#
+#		# check hash
+#		echo $elt
+#	done
+#}
 
-		# check hash
-		#echo "hello"
-		echo $elt
-	done
-}
+#check_diff "${dirs[@]}"
 #dirs=$(check_diff "${dirs[@]}")
 
 #goimports
@@ -31,6 +43,7 @@ go_imports "${dirs[@]}"
 
 #detect and print files w offending style
 g_style () {
+	lastMod=$(stat -c %Y $lastModDoc)
 	for d in $1;
 	do
 		#echo $d
@@ -38,15 +51,19 @@ g_style () {
 		for file in $gFiles;
 		do
 			fullPath=$d"/"$file
-			gstyle $fullPath $gfmt_base_dir &
+			lm=$(stat -c %Y $fullPath)
+			#echo $lm
+			if [ $lm -gt $lastMod ]; then
+				echo "OUCH"
+				gstyle $fullPath $gfmt_base_dir &
+			fi
 		done
 	done
 	wait
 }
 g_style "${dirs[@]}"
 
-mkdir $gfmt_base_dir
-lastTouch=$gfmt_base_dir"/last_touch.txt"
-touch $lastTouch
+touch -m $lastModDoc
 
+echo ""
 echo "gfmt: done."

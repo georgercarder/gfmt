@@ -12,9 +12,13 @@
 
 #### but more style rules will be checked in future versions.
 
-### to install:
+----------------------------------------------
 
-#### - install goimports
+#### System must have `bash` 
+
+#### Tested thus far with go version go1.14.4 linux/amd64
+
+### to install:
 
 #### - run `sudo ./install.sh`
 

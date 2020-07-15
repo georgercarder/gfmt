@@ -24,14 +24,11 @@ check_diff () { # of directories
 			fullPath=$elt"/"$file
 			# check time of each file against lastMod
 			lm=$(stat -c %Y $fullPath)
-			if [ $lm -gt $lastMod ]; then
-				echo $elt
-				continue
-			fi
 			# check if file does not appear in gfmt_base_dir
 			simPath=$gfmt_base_dir$fullPath
-			if [ ! -f $simPath ]; then
+			if [ $lm -gt $lastMod -o ! -f $simPath ]; then
 				echo $elt
+				continue
 			fi
 		done
 

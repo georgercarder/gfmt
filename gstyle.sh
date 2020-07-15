@@ -46,6 +46,7 @@ check_width () {
 			nicePath=$(nice_path $1)
 			echo "."$nicePath":"$line_num
 			echo "styleOffense: width" 
+			echo ""
 			return 1
 		done
 	fi
@@ -58,6 +59,7 @@ check_len_of_file () {
 		nicePath=$(nice_path $1)
 		echo "."$nicePath 
 		echo "styleOffense: fileLength" $fileLength 
+		echo ""
 		return 1
 	fi
 }
@@ -104,6 +106,7 @@ check_func_len () {
 					
 					echo "."$nicePath":"$line_no
 					echo "styleOffense: functionHeight" 
+					echo ""
 					return 1
 				fi
 				funcIdx=0

@@ -1,6 +1,6 @@
 # gfmt
 
-### runs goimports recursively on a directory and runs scripts checking basic style
+### calls goimports recursively on a directory and runs scripts checking basic style
 
 ### currently the style checked is only: 
 

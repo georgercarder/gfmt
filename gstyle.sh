@@ -64,6 +64,12 @@ update_t_file () { # touch
 	touch -m $simPath
 }
 
+check_func_len () {
+	fullFilePath=$1
+	#echo $fullFilePath
+	return 0
+}
+
 runner() {
 	check_width $1
 	ret1=$?
@@ -71,8 +77,9 @@ runner() {
 	check_len_of_file $1
 	#echo "debug after check_len_of_file"
 	ret2=$?
-	offender=$ret1||$ret2
-	#echo "offender" $offender
+	check_func_len $1
+	ret3=$?
+	offender=$(($ret1||$ret2||$ret3))
 	if [ $offender -eq 0 ]; then
 		# not an offender
 		update_t_file $1 $2

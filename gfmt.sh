@@ -84,7 +84,9 @@ g_style () {
 }
 g_style "${dirs[@]}"
 
-touch -m $lastModDoc
+if [ -f $lastModDoc ]; then
+	touch -m $lastModDoc
+fi
 
 echo ""
 echo "gfmt: done."

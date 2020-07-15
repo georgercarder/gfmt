@@ -16,8 +16,7 @@
 
 #### - install goimports
 
-#### - run `ln gfmt.sh /usr/bin/gfmt`
-#### - run `ln gstyle.sh /usr/bin/gstyle`
+#### - run `sudo ./install.sh`
 
 ### to use:
 

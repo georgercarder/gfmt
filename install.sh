@@ -12,6 +12,8 @@ if [ ! $errFlag -eq 0 ]; then
 	echo "try:"
 	echo "  - using sudo"
 	echo "  - removing symlinks /usr/bin/gfmt /usr/bin/gstyle and try again"
+	echo "  - check go version go1.14.4 linux/amd64 is installed"
+	echo "  - system has bash"
 	echo ""
 	exit 1
 fi

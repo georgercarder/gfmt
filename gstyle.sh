@@ -35,7 +35,7 @@ check_width () {
 		line_nums=$(line_num_w_width $1 $maxWidth)
 		for line_num in $line_nums
 		do
-			echo $1 "line:" $line_num
+			echo $1":"$line_num
 			echo "styleOffense: width" 
 			return 1
 		done

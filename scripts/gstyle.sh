@@ -4,7 +4,7 @@
 
 maxWidth=80
 maxFileLength=1000
-maxFunctionHeight=47
+maxFunctionHeight=50
 
 nice_path () {
 	fullFilePath=$1

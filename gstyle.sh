@@ -6,6 +6,7 @@ maxWidth=80
 maxFileLength=1000
 maxFunctionHeight=48
 
+
 line_num_w_width () {
 	idx=0
 	max=$(($2+1))
@@ -35,10 +36,10 @@ check_width () {
 		do
 			echo $1 "line:" $line_num
 			echo "styleOffense: width" 
+			return 1
 		done
 	fi
 }
-check_width $1
 
 #check length of file
 check_len_of_file () {
@@ -46,11 +47,35 @@ check_len_of_file () {
 	if [ $fileLength -gt $maxFileLength ]; then
 		echo $1
 		echo "styleOffense: fileLength" $fileLength 
+		return 1
 	fi
 }
-check_len_of_file $1
 
 # check length of closures 
 # TODO
 
 #echo "gs returns"
+
+update_tnh_file () {
+	fullFilePath=$1
+	h=($(sha256sum $fullFilePath))
+	hhashPath=$2$fullFilePath
+	file=${hhashPath##*/}
+	path=$(echo $hhashPath | sed -e "s/$file$//g")
+	mkdir -p $path
+	echo $h > $hhashPath
+}
+
+runner() {
+	check_width $1
+	ret1=$?
+	check_len_of_file $1
+	ret2=$?
+	offender=$ret1||$ret2
+	#echo "offender" $offender
+	if [ $offender -eq 0 ]; then
+		# not an offender
+		update_tnh_file $1 $2
+	fi		
+}
+runner $1 $2 

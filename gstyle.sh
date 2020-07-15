@@ -6,6 +6,14 @@ maxWidth=80
 maxFileLength=1000
 maxFunctionHeight=47
 
+nice_path () {
+	fullFilePath=$1
+	fullFilePath=$(echo $fullFilePath | tr '/' '|')
+	p=$(pwd | tr '/' '|')
+	nicePath=$(echo $fullFilePath | sed -e "s/^$p//" | tr '|' '/')
+	echo $nicePath
+}
+
 line_num_w_width () {
 	idx=0
 	max=$(($2+1))
@@ -35,7 +43,8 @@ check_width () {
 		line_nums=$(line_num_w_width $1 $maxWidth)
 		for line_num in $line_nums
 		do
-			echo $1":"$line_num
+			nicePath=$(nice_path $1)
+			echo "."$nicePath":"$line_num
 			echo "styleOffense: width" 
 			return 1
 		done
@@ -46,7 +55,8 @@ check_width () {
 check_len_of_file () {
 	fileLength=$(wc -l < $1)
 	if [ $fileLength -gt $maxFileLength ]; then
-		echo $1
+		nicePath=$(nice_path $1)
+		echo "."$nicePath 
 		echo "styleOffense: fileLength" $fileLength 
 		return 1
 	fi
@@ -90,7 +100,9 @@ check_func_len () {
 				if [ $functionLength -gt $maxFunctionHeight ];
 				then
 					line_no=$((funcIdx+1))
-					echo $fullFilePath":"$line_no
+					nicePath=$(nice_path $fullFilePath)
+					
+					echo "."$nicePath":"$line_no
 					echo "styleOffense: functionHeight" 
 					return 1
 				fi

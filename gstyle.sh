@@ -27,7 +27,9 @@ line_num_w_width () {
 
 #check width
 check_width () {
+	#echo "debug before width"
 	width=$(wc -L < $1)
+	#echo "debug after width"
 	if [ $width -gt $maxWidth ]; then
 		#line_num_w_width $1 $maxWidth
 		line_nums=$(line_num_w_width $1 $maxWidth)
@@ -65,7 +67,9 @@ update_t_file () { # touch
 runner() {
 	check_width $1
 	ret1=$?
+	#echo "debug after check_width"
 	check_len_of_file $1
+	#echo "debug after check_len_of_file"
 	ret2=$?
 	offender=$ret1||$ret2
 	#echo "offender" $offender

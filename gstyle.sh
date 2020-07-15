@@ -89,7 +89,8 @@ check_func_len () {
 				functionLength=$((bracIdx-funcIdx))
 				if [ $functionLength -gt $maxFunctionHeight ];
 				then
-					echo $fullFilePath":"$funcIdx
+					line_no=$((funcIdx+1))
+					echo $fullFilePath":"$line_no
 					echo "styleOffense: functionHeight" 
 					return 1
 				fi

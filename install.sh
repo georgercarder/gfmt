@@ -1,5 +1,7 @@
 #!/bin/bash
 
+go get golang.org/x/tools/cmd/goimports
+
 ln scripts/gfmt.sh /usr/bin/gfmt
 ln scripts/gstyle.sh /usr/bin/gstyle
 

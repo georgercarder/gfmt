@@ -20,12 +20,9 @@ line_num_w_width () {
 	IFS=''
 	while read line;
 	do
-		trans=$(echo $line | sed 's/\t/~~~~~~~~/') 
+		trans=$(echo $line | sed 's/\t/~~~~~~~~/g')
 		len=$(echo $trans | wc -c)	
-		#echo $len $2
 		if [ $len -gt $max ]; then
-			#echo $len	
-			#echo $trans
 			line_no=$((idx+1))
 			echo $line_no 
 		fi
@@ -39,7 +36,6 @@ check_width () {
 	width=$(wc -L < $1)
 	#echo "debug after width"
 	if [ $width -gt $maxWidth ]; then
-		#line_num_w_width $1 $maxWidth
 		line_nums=$(line_num_w_width $1 $maxWidth)
 		for line_num in $line_nums
 		do

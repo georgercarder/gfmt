@@ -11,7 +11,7 @@ dirs=$(go list -f {{.Dir}} ./...)
 check_diff () { # of directories
 	if [ ! -f $lastModDoc ]; then
 		dirs=$1
-		echo ${dirs[@]}
+		echo $dirs
 		exit 0 
 	fi
 	lastMod=$(stat -c %Y $lastModDoc)
@@ -69,7 +69,7 @@ g_style () {
 			# check if file does not appear in gfmt_base_dir
 			simPath=$gfmt_base_dir$fullPath
 			if [ $lm -gt $lastMod -o ! -f $simPath ]; then
-				gstyle $fullPath $gfmt_base_dir &
+				gfmt_gstyle $fullPath $gfmt_base_dir &
 				continue
 			fi
 		done

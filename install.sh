@@ -11,8 +11,8 @@ err_not_installed() {
 link() {
 	script=$1
 	name=$(echo $script | sed 's/\..*//g')
-	if [ "$name" != "gdp" ]; then 
-		name="gdp_"$name
+	if [ "$name" != "gfmt" ]; then 
+		name="gfmt_"$name
 	fi
 	binPath=/usr/bin/$name
 	if [ ! -z "$binPath" ]; then

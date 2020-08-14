@@ -37,11 +37,11 @@ check_diff () { # of directories
 
 unique () {
 	arr=$1
-	echo ${arr[@]} | tr ' ' '\n'| sort -u | tr '\n' ' '
+	echo $arr | tr ' ' '\n'| sort -u | tr '\n' ' '
 }
 
-dirs=$(check_diff "${dirs[@]}")
-dirs=$(unique "${dirs[@]}")
+dirs=$(check_diff "$dirs")
+dirs=$(unique "$dirs")
 
 go_imports () {
 	for d in $1; 
@@ -49,7 +49,7 @@ go_imports () {
 	done
 	wait
 }
-go_imports "${dirs[@]}"
+go_imports "$dirs"
 
 #detect and print files w offending style
 g_style () {
@@ -76,7 +76,7 @@ g_style () {
 	done
 	wait
 }
-g_style "${dirs[@]}"
+g_style "$dirs"
 
 mkdir -p $gfmt_base_dir
 touch -m $lastModDoc

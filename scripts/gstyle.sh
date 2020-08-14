@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 #gstyle input is dir/*.go
 
